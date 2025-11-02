@@ -69,7 +69,7 @@ const RestaurantDetail = () => {
         }
     }, [restaurant, logoPosition]);
 
-    const handleMouseDown = (e: React.MouseEvent) => {
+    const handleMouseDown = () => {
         if (!containerRef.current) return;
         setIsDragging(true);
     };
