@@ -3,10 +3,24 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
+import { useMutation } from "@tanstack/react-query";
+import { registerUser } from "@/services/auth";
 
 const Login = () => {
     const [mobileNumber, setMobileNumber] = useState("");
     const navigate = useNavigate();
+
+    const mutation = useMutation(({
+        mutationFn: registerUser,
+        onSuccess: (data) => {
+            toast.success(data.status);
+            setMobileNumber("");
+            navigate("/verify-otp");
+        },
+        onError: (error: any) => {
+            toast.error(error.response?.data?.error || "resigter error");
+        }
+    }))
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -27,7 +41,7 @@ const Login = () => {
 
         // Store mobile number and navigate to OTP page
         sessionStorage.setItem("mobileNumber", mobileNumber);
-        navigate("/verify-otp");
+        mutation.mutate({ dial_code: "+91", phone: mobileNumber })
     };
 
     return (

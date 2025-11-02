@@ -4,12 +4,35 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 import { ArrowLeft } from "lucide-react";
+import { useMutation } from "@tanstack/react-query";
+import { loginUser } from "@/services/auth";
 
 const VerifyOtp = () => {
     const [otp, setOtp] = useState<string[]>(new Array(6).fill(""));
     const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
     const navigate = useNavigate();
     const mobileNumber = sessionStorage.getItem("mobileNumber");
+
+    const mutation = useMutation({
+        mutationFn: loginUser,
+        onSuccess: (data) => {
+            toast.success(data.status, {
+                description: "OTP verified successfully",
+                style: {
+                    background: "green",
+                    color: "white",
+                }
+            });
+            const token = data.data.token;
+            sessionStorage.setItem("token", token);
+            sessionStorage.setItem("isVerified", "true");
+            setOtp(["", "", "", "", "", ""]);
+            navigate("/restaurants");
+        },
+        onError: (error: any) => {
+            toast.error(error?.error_message || "Check your mobile number and OTP");
+        }
+    })
 
     useEffect(() => {
         if (!mobileNumber) {
@@ -64,19 +87,7 @@ const VerifyOtp = () => {
             return;
         }
 
-        // Mark as verified and navigate
-        sessionStorage.setItem("isVerified", "true");
-        toast.success("OTP Verified", {
-            description: "OTP verified successfully",
-            style: {
-                background: "green",
-                color: "white",
-            }
-        });
-
-        setTimeout(() => {
-            navigate("/restaurants");
-        }, 1000);
+        mutation.mutate({ dial_code: "+91", phone: mobileNumber!, otp: otpValue })
     };
 
     const handleResend = () => {

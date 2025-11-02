@@ -24,8 +24,9 @@ const Restaurants = () => {
         // Check if user is logged in
         const mobileNumber = sessionStorage.getItem("mobileNumber");
         const isVerified = sessionStorage.getItem("isVerified");
+        const token = sessionStorage.getItem("token");
 
-        if (!mobileNumber || !isVerified) {
+        if (!mobileNumber || !isVerified || !token) {
             navigate("/login");
             return;
         }
