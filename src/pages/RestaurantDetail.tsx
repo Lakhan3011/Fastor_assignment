@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Share2, Download } from "lucide-react";
 import { toast } from "sonner";
-import fastorLogo from "@/assets/fastor-logo.png";
+import fastorLogo from "@/assets/fastor192.svg";
 
 interface Restaurant {
     id: string;
@@ -135,6 +135,7 @@ const RestaurantDetail = () => {
 
                     toast.success("Shared successfully!", {
                         description: "Image shared to your selected app",
+                        position: "top-center",
                         style: {
                             background: "green",
                             color: "white",
@@ -148,6 +149,7 @@ const RestaurantDetail = () => {
         } catch (error) {
             toast.error("Sharing failed", {
                 description: "Your browser doesn't support sharing. Image will be downloaded instead.",
+                position: "top-center",
                 style: {
                     background: "red",
                     color: "white",
@@ -168,6 +170,7 @@ const RestaurantDetail = () => {
 
         toast.success("Image downloaded!", {
             description: "Check your downloads folder",
+            position: "top-center",
             style: {
                 background: "green",
                 color: "white",

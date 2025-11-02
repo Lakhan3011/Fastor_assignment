@@ -18,6 +18,7 @@ const VerifyOtp = () => {
         onSuccess: (data) => {
             toast.success(data.status, {
                 description: "OTP verified successfully",
+                position: "top-center",
                 style: {
                     background: "green",
                     color: "white",
@@ -67,6 +68,7 @@ const VerifyOtp = () => {
         if (otpValue.length !== 6) {
             toast.error("Invalid OTP", {
                 description: "Please enter all 4 digits",
+                position: "top-center",
                 style: {
                     background: "red",
                     color: "white",
@@ -79,6 +81,7 @@ const VerifyOtp = () => {
         if (otpValue !== "123456") {
             toast.warning("Invalid OTP", {
                 description: "Please enter the correct OTP: 123456",
+                position: "top-center",
                 style: {
                     background: "red",
                     color: "white",
@@ -93,6 +96,7 @@ const VerifyOtp = () => {
     const handleResend = () => {
         toast.info("OTP Resent", {
             description: "A new verification code has been sent to your mobile number",
+            position: "top-center",
             style: {
                 background: "blue",
                 color: "white",
@@ -104,7 +108,7 @@ const VerifyOtp = () => {
 
     return (
         <div className="flex min-h-screen items-center justify-center bg-background px-4">
-            <div className="w-full max-w-sm space-y-8">
+            <div className="w-full max-w-sm space-y-8 font-['Poppins']">
                 <button
                     onClick={() => navigate("/login")}
                     className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
@@ -114,7 +118,7 @@ const VerifyOtp = () => {
                 </button>
 
                 <div className="space-y-2">
-                    <h1 className="text-2xl font-bold tracking-tight text-foreground">
+                    <h1 className="text-2xl font-bold  tracking-tight text-foreground">
                         Verify OTP
                     </h1>
                     <p className="text-sm text-muted-foreground">
@@ -141,7 +145,7 @@ const VerifyOtp = () => {
 
                     <Button
                         type="submit"
-                        className="w-full h-12 text-base font-medium"
+                        className="w-full h-12 bg-[#FF6D6A] text-base font-medium"
                         size="lg"
                     >
                         Verify OTP

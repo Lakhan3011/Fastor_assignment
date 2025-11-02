@@ -13,7 +13,15 @@ const Login = () => {
     const mutation = useMutation(({
         mutationFn: registerUser,
         onSuccess: (data) => {
-            toast.success(data.status);
+            toast.success(data.status, {
+                description: "Mobile number registered successfully",
+                position: "top-center",
+                style: {
+                    background: "green",
+                    color: "white",
+                }
+            });
+            sessionStorage.setItem("mobileNumber", mobileNumber);
             setMobileNumber("");
             navigate("/verify-otp");
         },
@@ -38,20 +46,17 @@ const Login = () => {
 
             return;
         }
-
-        // Store mobile number and navigate to OTP page
-        sessionStorage.setItem("mobileNumber", mobileNumber);
         mutation.mutate({ dial_code: "+91", phone: mobileNumber })
     };
 
     return (
         <div className="flex min-h-screen items-center justify-center bg-background px-4">
-            <div className="w-full max-w-sm space-y-8">
+            <div className="w-full max-w-sm space-y-8 font-['Poppins']">
                 <div className="space-y-2">
                     <h1 className="text-2xl font-bold tracking-tight text-foreground">
                         Enter Your Mobile Number
                     </h1>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-sm text-muted-foreground ">
                         We will send you the 4 digit verification code
                     </p>
                 </div>
@@ -70,7 +75,7 @@ const Login = () => {
 
                     <Button
                         type="submit"
-                        className="w-full h-12 text-base font-medium"
+                        className="w-full h-12 text-base bg-[#FF6D6A] font-medium"
                         size="lg"
                     >
                         Send Code
